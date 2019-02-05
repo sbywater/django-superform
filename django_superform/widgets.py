@@ -24,13 +24,14 @@ class TemplateWidget(forms.Widget):
         return {}
 
     def get_context(self, name, value, attrs=None):
-        context = {
+        context = super(TemplateWidget, self).get_context(name, value, attrs)
+        context.update({
             'name': name,
             'hidden': self.is_hidden,
             'required': self.is_required,
             # In our case ``value`` is the form or formset instance.
             'value': value,
-        }
+        })
         if self.value_context_name:
             context[self.value_context_name] = value
 
